@@ -108,13 +108,7 @@ public class ControllerAsm {
 		model.addAttribute("asms_in_asm", daoAsm.getAsmsInAsm(id));
 		
 		
-		asm.setAsmList(daoAsm.getAsmsInAsm(id));
-		asm.setOppList(daoAsm.getOppsInAsm(id));
-		asm.setOringList(daoAsm.getOringsInAsm(id));
-		asm.setVzkList(daoAsm.getVzkInAsm(id));
 		
-		
-
 		
 		redirectAttributes.addFlashAttribute("asm", asm);
 		return "/asm/asm_composition";
@@ -124,8 +118,13 @@ public class ControllerAsm {
 	@GetMapping("composition/full-composition/{id}")
 	public String showAsmFullComposition(@PathVariable("id") int id, Model model) {
 		
-		Asm asm = (Asm) model.getAttribute("asm");
-		System.out.println(asm.getName());
+		AsmComposition asmComposition = daoAsm.getAsmCompositionById(id);
+		asmComposition.compositionInnerAsm(daoAsm);
+		
+		model.addAttribute("orings_in_asm", asmComposition.getOringList());
+		model.addAttribute("opps_in_asm", asmComposition.getOppList());
+		model.addAttribute("vzks_in_asm", asmComposition.getVzkList());
+		model.addAttribute("asms_in_asm", asmComposition.getAsmList());
 		
 		return "asm/asm_composition-full";
 	}

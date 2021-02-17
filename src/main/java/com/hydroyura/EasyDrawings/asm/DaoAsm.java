@@ -91,4 +91,16 @@ private final JdbcTemplate jdbcTemplate;
 	}
 	
 	
+	// Возращает состав сборки
+	public AsmComposition getAsmCompositionById(int id) {
+		AsmComposition asmComposition = new AsmComposition();
+		asmComposition.setAsmList(getAsmsInAsm(id));
+		asmComposition.setOppList(getOppsInAsm(id));
+		System.out.println(asmComposition.getOppList());
+		asmComposition.setOringList(getOringsInAsm(id));
+		asmComposition.setVzkList(getVzkInAsm(id));
+		return asmComposition;
+	}
+	
+	
 }
